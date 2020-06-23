@@ -46,18 +46,22 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 #### 2-5. MixUp Augmentation
 
 ### 3. Additional Tricks from hoya012's survey note
-#### CutMix Augmentation
+#### 3-1. CutMix Augmentation
 
-#### LARS Optimizer
+#### 3-2. Adam Optimizer, LARS Optimizer
 
-#### RandAugment
+#### 3-3. RandAugment
 
-#### EvoNorm
+#### 3-4. EvoNorm
 
-#### Other Architecture (EfficientNet, RegNet)
+#### 3-5. Other Architecture (EfficientNet, RegNet)
 
 ## Code Reference
-- Label Smoothing: https://github.com/pytorch/pytorch/issues/7455
-- EvoNorm: https://github.com/digantamisra98/EvoNorm
 - GradualWarmupScheduler: https://github.com/ildoonet/pytorch-gradual-warmup-lr
+- Label Smoothing: https://github.com/pytorch/pytorch/issues/7455
+- MixUp Augmentation:
+- CutMix Augmentation:https://github.com/clovaai/CutMix-PyTorch
+- LARS Optimizer: https://github.com/kakaobrain/torchlars
+- RandAugment: https://github.com/ildoonet/pytorch-randaugment
+- EvoNorm: https://github.com/digantamisra98/EvoNorm
 - ImageNet-Pretrained EfficientNet, RegNet: https://github.com/facebookresearch/pycls
