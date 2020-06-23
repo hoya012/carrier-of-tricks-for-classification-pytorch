@@ -19,7 +19,7 @@ def get_args():
 
     # training hyper parameters
     parser.add_argument('--batch_size', type=int, default=64)
-    parser.add_argument('--epochs', type=int, default=1)
+    parser.add_argument('--epochs', type=int, default=120)
     parser.add_argument('--log_interval', type=int, default=20)
     parser.add_argument('--evaluate', action='store_true', default=False)
 
