@@ -32,18 +32,18 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 - SGD + Momentum(0.9) + learning rate step decay (x0.1 at 30, 60, 90 epoch)
 
 ### 2. Bag of Tricks from Original Papers
-#### Learning Rate Warmup 
+#### 2-1. Learning Rate Warmup 
 - first 5 epochs to warmup
 
-#### Zero gamma in Batch Normalization
+#### 2-2. Zero gamma in Batch Normalization
 - zero-initialize the last BN in each residual branch
 
-#### Cosine Learning Rate Annealing
+#### 2-3. Cosine Learning Rate Annealing
 ![](assets/cosine_warmup.PNG)
 
-#### Label Smoothing
+#### 2-4. Label Smoothing
 
-#### MixUp Augmentation
+#### 2-5. MixUp Augmentation
 
 ### 3. Additional Tricks from hoya012's survey note
 #### CutMix Augmentation
@@ -51,6 +51,10 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 #### LARS Optimizer
 
 #### RandAugment
+
+#### EvoNorm
+
+#### Other Architecture (EfficientNet, RegNet)
 
 ## Code Reference
 - Label Smoothing: https://github.com/pytorch/pytorch/issues/7455
