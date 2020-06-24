@@ -1,5 +1,5 @@
-# bag-of-tricks-for-classification-pytorch
-bag of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
+# carrier-of-tricks-for-classification-pytorch
+carrier of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
 
 - author: hoya012  
 - last update: 2020.06.24
@@ -52,7 +52,7 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 ### 3. Additional Tricks from hoya012's survey note
 #### 3-1. CutMix Augmentation
 
-#### 3-2. Adam Optimizer, LARS Optimizer
+#### 3-2. LARS Optimizer
 
 #### 3-3. RandAugment
 
@@ -64,10 +64,17 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 - A : Adam Optimizer
 - W : Warm up 
 - Z : Zero Gamma in Batch Norm
+- C : Cosine Annealing
+- S : Label Smoothing
+- M : MixUp Augmentation
+- CM: CutMix Augmentation
+- L : LARS Optimizer
+- R : RandAugment
+- E : EvoNorm 
 
 |   Algorithm  |    Train Accuracy   | Validation Accuracy | Test Accuracy |
 |:------------:|:-------------------:|:-------------------:|:-------------:|
-|   Baseline from scratch   | 65.86  |        83.43        |        -      |
+|   Baseline from scratch   | -  |        -        |        -      |
 |   Baseline   |         63.57       |        82.75        |        -      |
 | Baseline + A |          -          |          -          |        -      |
 |  Baseline + W|         76.86       |        92.59        |        -      |
