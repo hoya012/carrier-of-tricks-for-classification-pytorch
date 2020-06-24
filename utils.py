@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 
 import torch
 import torch.optim as optim
@@ -133,14 +134,9 @@ def make_dataloader(args):
     validset = torchvision.datasets.ImageFolder(root="data/seg_train/seg_train", transform=valid_trans)
     testset = torchvision.datasets.ImageFolder(root="data/seg_test/seg_test", transform=test_trans)
 
-    num_train = len(trainset)
-    indices = list(range(num_train))
-    split = int(np.floor(0.2 * num_train))
-
     np.random.seed(args.seed)
-    np.random.shuffle(indices)
-
-    train_idx, valid_idx = indices[split:], indices[:split]
+    targets = trainset.targets
+    train_idx, valid_idx = train_test_split(np.arange(len(targets)), test_size=0.2, shuffle=True, stratify=targets)
     train_sampler = SubsetRandomSampler(train_idx)
     valid_sampler = SubsetRandomSampler(valid_idx)
 
