@@ -65,4 +65,22 @@ class Evaluator():
 
         return result_dict
 
+    def test(self, data_loader, args, result_dict):
+        top1 = AverageMeter()
+
+        self.model.eval()
+        with torch.no_grad():
+            for batch_idx, (inputs, labels) in enumerate(data_loader):
+                inputs, labels = inputs.cuda(), labels.cuda()
+                outputs = self.model(inputs)
+
+                prec1, prec3 = accuracy(outputs.data, labels, topk=(1, 3))
+                top1.update(prec1.item(), inputs.size(0))
+                        
+        print('----Test Set Results Summary----')
+        print('Top-1 accuracy: {:.2f}%'.format(top1.avg))
+
+        result_dict['test_acc'].append(top1.avg)
+
+        return result_dict
     
