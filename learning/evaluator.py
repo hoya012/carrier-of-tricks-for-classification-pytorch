@@ -7,7 +7,9 @@ class Evaluator():
     def __init__(self, model, criterion):
         self.model = model
         self.criterion = criterion
-        self.save_path = os.path.join(self.model.checkpoint_dir, self.model.checkpoint_name + '.json')
+        self.save_path = os.path.join(self.model.checkpoint_dir, self.model.checkpoint_name, 'result_dict.json')
+        if not os.path.exists(os.path.join(self.model.checkpoint_dir, self.model.checkpoint_name)):
+            os.makedirs(os.path.join(self.model.checkpoint_dir, self.model.checkpoint_name))
 
     def worst_result(self):
         ret = { 

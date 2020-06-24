@@ -176,7 +176,7 @@ class ResNet50(nn.Module):
 
         if not os.path.exists(checkpoint_dir):
             os.makedirs(checkpoint_dir)
-        self.checkpoint_path = os.path.join(checkpoint_dir, checkpoint_name + '.pt')
+        self.checkpoint_path = os.path.join(checkpoint_dir, checkpoint_name, 'model.pt')
 
         model = ResNet(Bottleneck, [3,4,6,3], num_classes, norm, zero_init_residual)
         
@@ -207,12 +207,8 @@ class ResNet50(nn.Module):
             nn.Linear(self.num_features, num_classes)
         )
 
-    def save(self, checkpoint_name=''):
-        if checkpoint_name == '':
-            torch.save(self.state_dict(), self.checkpoint_path)
-        else:
-            checkpoint_path = os.path.join(self.checkpoint_dir, checkpoint_name + '.pt')
-            torch.save(self.state_dict(), checkpoint_path)
+    def save(self):
+        torch.save(self.state_dict(), checkpoint_path)
 
     def load(self):
         assert os.path.exists(self.checkpoint_path)

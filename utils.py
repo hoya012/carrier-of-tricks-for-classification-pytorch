@@ -174,7 +174,7 @@ def plot_learning_curves(metrics, cur_epoch, args):
     lns = ln1+ln2+ln3+ln4
     plt.legend(lns, ['Train loss', 'Validation loss', 'Train accuracy','Validation accuracy'])
     plt.tight_layout()
-    plt.savefig('{}/{}_learning_curve.png'.format(args.checkpoint_dir, args.checkpoint_name), bbox_inches='tight')
+    plt.savefig('{}/{}/learning_curve.png'.format(args.checkpoint_dir, args.checkpoint_name), bbox_inches='tight')
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
