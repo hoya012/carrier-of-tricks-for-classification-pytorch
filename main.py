@@ -42,9 +42,10 @@ def main():
     scheduler = make_scheduler(args, optimizer)
     
     """ define trainer, evaluator, result_dictionary """
-    result_dict = {'epoch':[], 'train_loss' : [], 'train_acc' : [], 'val_loss' : [], 'val_acc' : []}
+    result_dict = {'args':vars(args), 'epoch':[], 'train_loss' : [], 'train_acc' : [], 'val_loss' : [], 'val_acc' : []}
     trainer = Trainer(model, criterion, optimizer, scheduler)
     evaluator = Evaluator(model, criterion)
+    evaluator.save(result_dict)
 
     """ define training loop """
     for epoch in range(args.epochs):
