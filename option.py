@@ -7,11 +7,11 @@ def get_args():
     parser.add_argument('--model', type=str, default='ResNet50')
     parser.add_argument('--norm', type=str, default='batchnorm')
     parser.add_argument('--num_classes', type=int, default=6)
-    parser.add_argument('--pretrained', type=bool, default=True)
+    parser.add_argument('--pretrained', type=int, default=1)
     parser.add_argument('--pretrained_path', type=str, default=None)
     parser.add_argument('--checkpoint_dir', type=str, default='checkpoint')
     parser.add_argument('--checkpoint_name', type=str, default='')
-    parser.add_argument('--zero_gamma', type=bool, default=False)
+    parser.add_argument('--zero_gamma', action='store_true', default=False)
 
     # data loading
     parser.add_argument('--num_workers', type=int, default=0)
