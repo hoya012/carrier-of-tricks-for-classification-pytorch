@@ -47,9 +47,13 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 
 #### 2-4. Label Smoothing
 ![](assets/label_smoothing.PNG)
+- In paper, use smoothing coefficient as 0.1. I will use same value.
+- The number of classes in imagenet (1000) is different from the number of classes in our dataset (6), but i didn't tune them.
 
 #### 2-5. MixUp Augmentation
 ![](assets/mixup.PNG)
+- lambda is a random number drawn from Beta(alpha, alpha) distribution.
+- I will use alpha=0.2 like paper.
 
 ### 3. Additional Tricks from hoya012's survey note
 #### 3-1. CutMix Augmentation
