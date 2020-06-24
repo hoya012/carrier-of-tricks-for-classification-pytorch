@@ -2,7 +2,7 @@
 bag of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
 
 - author: hoya012  
-- last update: 2020.06.22
+- last update: 2020.06.24
 - [supplementary materials (blog post written in Korean)](https://hoya012.github.io/blog/Bag-of-Tricks-for-Image-Classification-with-Convolutional-Neural-Networks-Review/)
 
 ## 0. Experimental Setup
@@ -27,9 +27,13 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 
 ### 1. Baseline Training Setting
 - ImageNet Pratrained ResNet-50 from torchvision.models
-- 1080 Ti 1 GPU / Batch Size 64 / Epochs 120
+- 1080 Ti 1 GPU / Batch Size 64 / Epochs 120 / Initial Learning Rate 0.1
 - Training Augmentation: Resize((256, 256)), RandomCrop(224, 224), RandomHorizontalFlip(), RandomVerticalFlip(), Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
 - SGD + Momentum(0.9) + learning rate step decay (x0.1 at 30, 60, 90 epoch)
+
+#### 1-1. Simple Trials
+- Random Initialized ResNet-50 (from scratch)
+- Adam Optimizer with small learning rate
 
 ### 2. Bag of Tricks from Original Papers
 #### 2-1. Learning Rate Warmup 
@@ -55,6 +59,21 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 #### 3-4. EvoNorm
 
 #### 3-5. Other Architecture (EfficientNet, RegNet)
+
+### 4. Performance Table
+- A : Adam Optimizer
+- W : Warm up 
+- Z : Zero Gamma in Batch Norm
+
+|   Algorithm  |    Train Accuracy   | Validation Accuracy | Test Accuracy |
+|:------------:|:-------------------:|:-------------------:|:-------------:|
+|   Baseline from scratch   | 65.86  |        83.43        |        -      |
+|   Baseline   |         63.57       |        82.75        |        -      |
+| Baseline + A |          -          |          -          |        -      |
+|  Baseline + W|         76.86       |        92.59        |        -      |
+| Baseline + Z |         73.21       |        89.52        |        -      |
+|Baseline + W + Z|       74.41       |        90.88        |        -      |
+
 
 ## Code Reference
 - GradualWarmupScheduler: https://github.com/ildoonet/pytorch-gradual-warmup-lr
