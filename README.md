@@ -46,8 +46,10 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 ![](assets/cosine_warmup.PNG)
 
 #### 2-4. Label Smoothing
+![](assets/label_smoothing.PNG)
 
 #### 2-5. MixUp Augmentation
+![](assets/mixup.PNG)
 
 ### 3. Additional Tricks from hoya012's survey note
 #### 3-1. CutMix Augmentation
@@ -76,16 +78,17 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 |:------------:|:-------------------:|:-------------------:|:-------------:|
 |   Baseline from scratch   | -  |        -        |        -      |
 |   Baseline   |         63.57       |        82.75        |        -      |
-| Baseline + A |          -          |          -          |        -      |
 |  Baseline + W|         76.86       |        92.59        |        -      |
 | Baseline + Z |         73.21       |        89.52        |        -      |
 |Baseline + W + Z|       74.41       |        90.88        |        -      |
+| Baseline + A |          -          |          -          |        -      |
+| Baseline + A + W |        -        |          -          |        -      |
 
 
 ## Code Reference
-- GradualWarmupScheduler: https://github.com/ildoonet/pytorch-gradual-warmup-lr
-- Label Smoothing: https://github.com/pytorch/pytorch/issues/7455
-- MixUp Augmentation:
+- Gradual Warmup Scheduler: https://github.com/ildoonet/pytorch-gradual-warmup-lr
+- Label Smoothing: https://github.com/NVIDIA/DeepLearningExamples/blob/master/PyTorch/Classification/ConvNets/image_classification/smoothing.py
+- MixUp Augmentation: https://github.com/NVIDIA/DeepLearningExamples/blob/master/PyTorch/Classification/ConvNets/image_classification/mixup.py
 - CutMix Augmentation:https://github.com/clovaai/CutMix-PyTorch
 - LARS Optimizer: https://github.com/kakaobrain/torchlars
 - RandAugment: https://github.com/ildoonet/pytorch-randaugment
