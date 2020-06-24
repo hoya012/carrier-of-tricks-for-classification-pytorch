@@ -181,7 +181,9 @@ class ResNet50(nn.Module):
         model = ResNet(Bottleneck, [3,4,6,3], num_classes, norm, zero_init_residual)
         
         if pretrained:
+            print("Pretrained Weight is loaded!!")
             if pretrained_path is None:
+                print("Loading from torchvision models")
                 model = resnet.resnet50(pretrained=True)
                 if norm == 'evonorm':
                     for m in model.modules():
