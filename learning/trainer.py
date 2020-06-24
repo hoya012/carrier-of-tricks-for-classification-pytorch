@@ -19,10 +19,10 @@ class Trainer:
         self.model.train()
 
         if args.mixup > 0.0:
-            self.criterion = lambda: NLLMultiLabelSmooth(args.label_smooth)
+            self.criterion = NLLMultiLabelSmooth(args.label_smooth)
             data_loader = MixUpWrapper(args.mixup, data_loader)
         elif args.label_smooth > 0.0:
-            self.criterion = lambda: LabelSmoothing(args.label_smooth)
+            self.criterion = LabelSmoothing(args.label_smooth)
 
         for batch_idx, (inputs, labels) in enumerate(data_loader):
             inputs, labels = inputs.cuda(), labels.cuda()
