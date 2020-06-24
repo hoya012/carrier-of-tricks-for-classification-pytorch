@@ -22,6 +22,8 @@ def get_args():
     parser.add_argument('--epochs', type=int, default=120)
     parser.add_argument('--log_interval', type=int, default=20)
     parser.add_argument('--evaluate', action='store_true', default=False)
+    parser.add_argument('--mixup', type=float, default=0.0, help='mixup alpha')
+    parser.add_argument('--label_smooth', type=float, default=0.0, help='label smoothing')
 
     # optimzier & learning rate scheduler
     parser.add_argument('--learning_rate', type=float, default=0.1)

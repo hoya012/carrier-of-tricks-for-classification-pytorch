@@ -1,4 +1,6 @@
 from utils import AverageMeter, accuracy
+from learning.smoothing import LabelSmoothing
+from learning.mixup import MixUpWrapper, NLLMultiLabelSmooth
 
 class Trainer:
     def __init__(self, model, criterion, optimizer, scheduler):
@@ -15,6 +17,13 @@ class Trainer:
         top1 = AverageMeter()
 
         self.model.train()
+
+        if args.mixup > 0.0:
+            self.criterion = lambda: NLLMultiLabelSmooth(args.label_smooth)
+            data_loader = MixUpWrapper(args.mixup, data_loader)
+        elif args.label_smooth > 0.0:
+            self.criterion = lambda: LabelSmoothing(args.label_smooth)
+
         for batch_idx, (inputs, labels) in enumerate(data_loader):
             inputs, labels = inputs.cuda(), labels.cuda()
             outputs = self.model(inputs)
