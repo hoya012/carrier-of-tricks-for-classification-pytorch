@@ -80,12 +80,12 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 
 |   Algorithm  |    Train Accuracy   | Validation Accuracy | Test Accuracy |
 |:------------:|:-------------------:|:-------------------:|:-------------:|
-|   Baseline from scratch   | -  |        -        |        -      |
+|   Baseline from scratch   | 62.34  |        79.08        |        -      |
 |   Baseline   |         63.57       |        82.75        |        -      |
 |  Baseline + W|         76.86       |        92.59        |        -      |
 | Baseline + Z |         73.21       |        89.52        |        -      |
 |Baseline + W + Z|       74.41       |        90.88        |        -      |
-| Baseline + A |          -          |          -          |        -      |
+| Baseline + A |         82.81       |        94.08        |        -      |
 | Baseline + A + W |        -        |          -          |        -      |
 
 
