@@ -34,7 +34,7 @@ def get_model(args, shape, num_classes):
             checkpoint_dir=args.checkpoint_dir,
             checkpoint_name=args.checkpoint_name
         )#.cuda(args.gpu)
-        pt_ckpt = torch.load('pretrained_weights/RegNetY-3.2GF_dds_8gpu.pyth', map_location="cpu")
+        pt_ckpt = torch.load('pretrained_weights/RegNetY-1.6GF_dds_8gpu.pyth', map_location="cpu")
         model.load_state_dict(pt_ckpt["model_state"])
         model.head = anynet.AnyHead(w_in=model.prev_w, nc=num_classes)#.cuda(args.gpu)
     elif 'EfficientNet' in args.model:
