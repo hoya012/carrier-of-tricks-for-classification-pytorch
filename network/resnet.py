@@ -190,7 +190,7 @@ class ResNet50(nn.Module):
                         if isinstance(m, nn.BatchNorm2d):
                             m = EvoNorm
                         if isinstance(m, nn.ReLU):
-                            m = nn.identity
+                            m = nn.Identity
                 if zero_init_residual:
                     for m in model.modules():
                         if isinstance(m, resnet.Bottleneck):
