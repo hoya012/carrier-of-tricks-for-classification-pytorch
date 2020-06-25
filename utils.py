@@ -13,6 +13,7 @@ from torchvision import transforms as T
 
 from network.resnet import *
 from learning.lr_scheduler import GradualWarmupScheduler
+from learning.radam import RAdam
 
 def get_model(args, shape, num_classes):
     if 'ResNet' in args.model:
@@ -60,6 +61,12 @@ def make_optimizer(args, model):
         kwargs = {'momentum': 0.9}
     elif args.optimizer == 'ADAM':
         optimizer_function = optim.Adam
+        kwargs = {
+            'betas': (0.9, 0.999),
+            'eps': 1e-08
+        }
+    elif args.optimizer == 'RAdam':
+        optimizer_function = RAdam
         kwargs = {
             'betas': (0.9, 0.999),
             'eps': 1e-08
