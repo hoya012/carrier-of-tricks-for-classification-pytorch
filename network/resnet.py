@@ -208,7 +208,7 @@ class ResNet50(nn.Module):
         )
 
     def save(self):
-        torch.save(self.state_dict(), checkpoint_path)
+        torch.save(self.state_dict(), self.checkpoint_path)
 
     def load(self):
         assert os.path.exists(self.checkpoint_path)
