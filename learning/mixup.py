@@ -29,18 +29,24 @@ def mixup(alpha, data, target):
 
 
 class MixUpWrapper(object):
-    def __init__(self, alpha, dataloader):
+    def __init__(self, num_classes, alpha, dataloader):
+        self.num_classes = num_classes
         self.alpha = alpha
         self.dataloader = dataloader
 
     def mixup_loader(self, loader):
         for input, target in loader:
+            target = self.expand(self.num_classes, torch.float, target)
             i, t = mixup(self.alpha, input, target)
             yield i, t
 
     def __iter__(self):
         return self.mixup_loader(self.dataloader)
 
+    def expand(self, num_classes, dtype, tensor):
+        e = torch.zeros(tensor.size(0), num_classes, dtype=dtype)#, device=torch.device('cuda'))
+        e = e.scatter(1, tensor.unsqueeze(1), 1.0)
+        return e
 
 class NLLMultiLabelSmooth(nn.Module):
     def __init__(self, smoothing = 0.0):
