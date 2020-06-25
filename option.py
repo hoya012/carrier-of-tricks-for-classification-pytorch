@@ -4,9 +4,10 @@ def get_args():
     parser = argparse.ArgumentParser()
 
     # model architecture & checkpoint
-    parser.add_argument('--model', type=str, default='ResNet50')
+    parser.add_argument('--model', default='ResNet50', choices=('ResNet50', 'RegNet', 'EfficientNet'),
+                        help='optimizer to use (ResNet50 | RegNet | EfficientNet)')
     parser.add_argument('--norm', default='batchnorm', choices=('batchnorm', 'evonorm'),
-                        help='normalization to use (batchnorm | evonorm)'))
+                        help='normalization to use (batchnorm | evonorm)')
     parser.add_argument('--num_classes', type=int, default=6)
     parser.add_argument('--pretrained', type=int, default=1)
     parser.add_argument('--pretrained_path', type=str, default=None)
