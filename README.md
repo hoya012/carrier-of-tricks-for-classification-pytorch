@@ -2,7 +2,7 @@
 carrier of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
 
 - author: hoya012  
-- last update: 2020.06.24
+- last update: 2020.06.25
 - [supplementary materials (blog post written in Korean)](https://hoya012.github.io/blog/Bag-of-Tricks-for-Image-Classification-with-Convolutional-Neural-Networks-Review/)
 
 ## 0. Experimental Setup
@@ -58,7 +58,7 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 ### 3. Additional Tricks from hoya012's survey note
 #### 3-1. CutMix Augmentation
 
-#### 3-2. LARS Optimizer
+#### 3-2. RAdam Optimizer
 
 #### 3-3. RandAugment
 
@@ -67,6 +67,7 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 #### 3-5. Other Architecture (EfficientNet, RegNet)
 
 ### 4. Performance Table
+- B : Baseline
 - A : Adam Optimizer
 - W : Warm up 
 - Z : Zero Gamma in Batch Norm
@@ -74,19 +75,26 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 - S : Label Smoothing
 - M : MixUp Augmentation
 - CM: CutMix Augmentation
-- L : LARS Optimizer
-- R : RandAugment
+- R : RAdam Optimizer
+- RA : RandAugment
 - E : EvoNorm 
 
 |   Algorithm  |    Train Accuracy   | Validation Accuracy | Test Accuracy |
 |:------------:|:-------------------:|:-------------------:|:-------------:|
-|   Baseline from scratch   | 62.34  |        79.08        |        -      |
-|   Baseline   |         63.57       |        82.75        |        -      |
-|  Baseline + W|         76.86       |        92.59        |        -      |
-| Baseline + Z |         73.21       |        89.52        |        -      |
-|Baseline + W + Z|       74.41       |        90.88        |        -      |
-| Baseline + A |         82.81       |        94.08        |        -      |
-| Baseline + A + W |        -        |          -          |        -      |
+|   B from scratch   |   62.81       |        81.08        |        -      |
+|      B       |         65.31       |        82.44        |        -      |
+|     B + W    |         76.00       |        91.13        |        -      |
+|     B + Z    |           -         |          -          |        -      |
+|   B + W + Z  |           -         |          -          |        -      |
+|     B + A    |         82.01       |        92.80        |        -      |
+|   B + A + W  |          -          |          -          |        -      |
+| B + A + W + C|          -          |          -          |        -      |
+| B + A + W + S|         82.79       |        93.34        |        -      |
+| B + A + W + M|          -          |          -          |        -      |
+|B + A + W + S + M|       -          |          -          |        -      |
+|B + A + W + C + S|      85.28       |        93.30        |        -      |
+|B + A + W + C + M|       -          |          -          |        -      |
+|B + A + W + C + S + M|   -          |          -          |        -      |
 
 
 ## Code Reference
@@ -94,7 +102,7 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 - Label Smoothing: https://github.com/NVIDIA/DeepLearningExamples/blob/master/PyTorch/Classification/ConvNets/image_classification/smoothing.py
 - MixUp Augmentation: https://github.com/NVIDIA/DeepLearningExamples/blob/master/PyTorch/Classification/ConvNets/image_classification/mixup.py
 - CutMix Augmentation:https://github.com/clovaai/CutMix-PyTorch
-- LARS Optimizer: https://github.com/kakaobrain/torchlars
+- RAdam Optimizer: https://github.com/LiyuanLucasLiu/RAdam
 - RandAugment: https://github.com/ildoonet/pytorch-randaugment
 - EvoNorm: https://github.com/digantamisra98/EvoNorm
 - ImageNet-Pretrained EfficientNet, RegNet: https://github.com/facebookresearch/pycls
