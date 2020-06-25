@@ -6,7 +6,6 @@ carrier of tricks for image classification tutorials using pytorch. Based on ["B
 - [supplementary materials (blog post written in Korean)](https://hoya012.github.io/blog/Bag-of-Tricks-for-Image-Classification-with-Convolutional-Neural-Networks-Review/)
 
 ## 0. Experimental Setup
-
 ### 0-1. Prepare Library
 
 ```python
@@ -24,6 +23,10 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 'mountain' -> 3,
 'sea' -> 4,
 'street' -> 5 }
+
+### 0-3. Download ImageNet-Pretrained Weights (EfficientNet, RegNet)
+- [facebook_research_pycls](https://github.com/facebookresearch/pycls/blob/master/MODEL_ZOO.md)
+- download **RegNetY-1.6GF** and **EfficientNet-B2** weights
 
 ### 1. Baseline Training Setting
 - ImageNet Pratrained ResNet-50 from torchvision.models
@@ -51,20 +54,41 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 - The number of classes in imagenet (1000) is different from the number of classes in our dataset (6), but i didn't tune them.
 
 #### 2-5. MixUp Augmentation
+- [MixUp paper link](https://arxiv.org/pdf/1710.09412.pdf)
 ![](assets/mixup.PNG)
 - lambda is a random number drawn from Beta(alpha, alpha) distribution.
 - I will use alpha=0.2 like paper.
 
 ### 3. Additional Tricks from hoya012's survey note
 #### 3-1. CutMix Augmentation
+- [CutMix paper link](https://arxiv.org/pdf/1905.04899.pdf)
+![](assets/cutmix.PNG)
+- I will use same hyper-parameter (cutmix alpha=1.0, cutmix prob=1.0) with ImageNet-Experimental Setting
 
 #### 3-2. RAdam Optimizer
+- [RAdam Optimizer paper link](https://arxiv.org/pdf/1908.03265.pdf)
+![](assets/radam.PNG)
 
 #### 3-3. RandAugment
+- [RandAugment paper link](https://arxiv.org/pdf/1909.13719.pdf)
+![](assets/randaugment.PNG)
 
 #### 3-4. EvoNorm
+- [EvoNorm paper link](https://arxiv.org/pdf/2004.02967.pdf)
+- [EvoNorm paper review post(Korean Only)](https://hoya012.github.io/blog/evonorm/)
+
+![](assets/evonorm.PNG)
 
 #### 3-5. Other Architecture (EfficientNet, RegNet)
+- [EfficientNet paper link](https://arxiv.org/pdf/1905.11946.pdf)
+- [EfficientNet paper review post(Korean Only)](https://hoya012.github.io/blog/EfficientNet-review/)
+- [RegNet paper link](https://arxiv.org/pdf/2003.13678.pdf)
+
+![](assets/efficientnet.PNG)
+![](assets/regnet.PNG)
+
+- I will use EfficientNet-B2 which has similar acts with ResNet-50
+- I will use RegNetY-1.6GF which has similar FLOPS and acts with ResNet-50
 
 ### 4. Performance Table
 - B : Baseline
@@ -85,7 +109,7 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 |      B       |         65.31       |        82.44        |        -      |
 |     B + W    |         76.00       |        91.13        |        -      |
 |     B + Z    |           -         |          -          |        -      |
-|   B + W + Z  |           -         |          -          |        -      |
+|   B + W + Z  |         74.71       |        90.06        |      90.30    |
 |     B + A    |         82.01       |        92.80        |        -      |
 |   B + A + W  |          -          |          -          |        -      |
 | B + A + W + C|          -          |          -          |        -      |
