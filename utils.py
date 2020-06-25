@@ -14,6 +14,7 @@ from torchvision import transforms as T
 from network.resnet import *
 from learning.lr_scheduler import GradualWarmupScheduler
 from learning.radam import RAdam
+from learning.randaug import RandAugment
 
 def get_model(args, shape, num_classes):
     if 'ResNet' in args.model:
@@ -65,7 +66,7 @@ def make_optimizer(args, model):
             'betas': (0.9, 0.999),
             'eps': 1e-08
         }
-    elif args.optimizer == 'RAdam':
+    elif args.optimizer == 'RADAM':
         optimizer_function = RAdam
         kwargs = {
             'betas': (0.9, 0.999),
@@ -125,6 +126,9 @@ def make_dataloader(args):
         T.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
         ])
     
+    if args.randaugment:
+        train_trans.transforms.insert(0, RandAugment(3, 5))
+
     valid_trans = T.Compose([
         T.Resize((224, 224)),
         T.ToTensor(),
