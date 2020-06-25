@@ -1,7 +1,9 @@
+import numpy as np
 import torch
 from utils import AverageMeter, accuracy
 from learning.smoothing import LabelSmoothing
 from learning.mixup import MixUpWrapper, NLLMultiLabelSmooth
+from learning.cutmix import cutmix
 
 class Trainer:
     def __init__(self, model, criterion, optimizer, scheduler):
@@ -27,8 +29,14 @@ class Trainer:
 
         for batch_idx, (inputs, labels) in enumerate(data_loader):
             inputs, labels = inputs.cuda(), labels.cuda()
-            outputs = self.model(inputs)
-            loss = self.criterion(outputs, labels)
+
+            if args.cutmix_alpha > 0:
+                r = np.random.rand(1)
+                if r < args.cutmix_prob:
+                    outputs, loss = cutmix(args, self.model, self.criterion, inputs, labels)
+            else:
+                outputs = self.model(inputs)
+                loss = self.criterion(outputs, labels)
 
             if len(labels.size()) > 1:
                 labels = torch.argmax(labels, axis=1)
