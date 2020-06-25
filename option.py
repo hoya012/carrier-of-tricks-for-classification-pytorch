@@ -5,7 +5,8 @@ def get_args():
 
     # model architecture & checkpoint
     parser.add_argument('--model', type=str, default='ResNet50')
-    parser.add_argument('--norm', type=str, default='batchnorm')
+    parser.add_argument('--norm', default='batchnorm', choices=('batchnorm', 'evonorm'),
+                        help='normalization to use (batchnorm | evonorm)'))
     parser.add_argument('--num_classes', type=int, default=6)
     parser.add_argument('--pretrained', type=int, default=1)
     parser.add_argument('--pretrained_path', type=str, default=None)
@@ -24,12 +25,15 @@ def get_args():
     parser.add_argument('--evaluate', action='store_true', default=False)
     parser.add_argument('--mixup', type=float, default=0.0, help='mixup alpha')
     parser.add_argument('--label_smooth', type=float, default=0.0, help='label smoothing')
+    parser.add_argument('--cutmix_alpha', type=float, default=0.0, help='cutmix alpha')
+    parser.add_argument('--cutmix_prob', type=float, default=0.0, help='cutmix probability')
+    parser.add_argument('--randaugment', action='store_true', default=False)
 
     # optimzier & learning rate scheduler
     parser.add_argument('--learning_rate', type=float, default=0.1)
     parser.add_argument('--weight_decay', type=float, default=0.0001)
-    parser.add_argument('--optimizer', default='SGD', choices=('SGD', 'ADAM'),
-                        help='optimizer to use (SGD | ADAM)')
+    parser.add_argument('--optimizer', default='SGD', choices=('SGD', 'ADAM', 'RADAM'),
+                        help='optimizer to use (SGD | ADAM | RADAM)')
     parser.add_argument('--decay_type', default='step', choices=('step', 'step_warmup', 'cosine_warmup'),
                         help='optimizer to use (step | step_warmup | cosine_warmup)')
 
