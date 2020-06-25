@@ -56,6 +56,7 @@ def main():
         plot_learning_curves(result_dict, epoch, args)
 
     result_dict = evaluator.test(test_loader, args, result_dict)
+    evaluator.save(result_dict)
     print(result_dict)
 
     """ save model checkpoint """
