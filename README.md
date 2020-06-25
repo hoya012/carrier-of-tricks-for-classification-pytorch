@@ -98,6 +98,7 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 - C : Cosine Annealing
 - S : Label Smoothing
 - M : MixUp Augmentation
+
 - CM: CutMix Augmentation
 - R : RAdam Optimizer
 - RA : RandAugment
@@ -105,20 +106,27 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 
 |   Algorithm  |    Train Accuracy   | Validation Accuracy | Test Accuracy |
 |:------------:|:-------------------:|:-------------------:|:-------------:|
-|   B from scratch   |   62.81       |        81.08        |        -      |
-|      B       |         65.31       |        82.44        |        -      |
+|B from scratch|         62.81       |        81.08        |        -      |
+|       B      |         65.31       |        82.44        |        -      |
 |     B + W    |         76.00       |        91.13        |        -      |
-|     B + Z    |           -         |          -          |        -      |
+|     B + Z    |         73.41       |        89.49        |      88.83    |
 |   B + W + Z  |         74.71       |        90.06        |      90.30    |
 |     B + A    |         82.01       |        92.80        |        -      |
-|   B + A + W  |          -          |          -          |        -      |
-| B + A + W + C|          -          |          -          |        -      |
+|   B + A + W  |         81.89       |        93.05        |      92.87    |
+| B + A + W + C|         85.07       |        92.70        |      93.03    |
 | B + A + W + S|         82.79       |        93.34        |        -      |
 | B + A + W + M|          -          |          -          |        -      |
 |B + A + W + S + M|       -          |          -          |        -      |
 |B + A + W + C + S|      85.28       |        93.30        |        -      |
 |B + A + W + C + M|       -          |          -          |        -      |
 |B + A + W + C + S + M|   -          |          -          |        -      |
+|:------------:|:-------------------:|:-------------------:|:-------------:|
+|  BAWC + CM   |          -          |          -          |        -      |
+|  BWCS + R    |          -          |          -          |        -      |
+|  BAWCS + RA  |          -          |          -          |        -      |
+|  BAWCS + E   |          -          |          -          |        -      |
+|:------------:|:-------------------:|:-------------------:|:-------------:|
+
 
 
 ## Code Reference
