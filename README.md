@@ -1,3 +1,8 @@
+
+<p align="center">
+  <img width="1200" src="/assets/banner.PNG">
+</p>
+
 # carrier-of-tricks-for-classification-pytorch
 carrier of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
 
@@ -52,6 +57,8 @@ python main.py --checkpoint_name baseline_Adam --optimizer ADAM --learning_rate 
 ```
 
 ### 2. Bag of Tricks from Original Papers
+Before start, i didn't try **No bias decay**, **Low-precision Training**, **ResNet Model Tweaks**, **Knowledge Distillation**. 
+
 #### 2-1. Learning Rate Warmup 
 - first 5 epochs to warmup
 
