@@ -346,7 +346,7 @@ class AnyNet(nn.Module):
         
         if not os.path.exists(checkpoint_dir):
             os.makedirs(checkpoint_dir)
-        self.checkpoint_path = os.path.join(checkpoint_dir, checkpoint_name + '.pt')
+        self.checkpoint_path = os.path.join(checkpoint_dir, checkpoint_name, 'model.pt')
 
         if kwargs:
             self._construct(

@@ -12,6 +12,9 @@ import torchvision
 from torchvision import transforms as T
 
 from network.resnet import *
+from network.efficientnet import *
+from network.regnet import *
+from network.anynet import *
 from learning.lr_scheduler import GradualWarmupScheduler
 from learning.radam import RAdam
 from learning.randaug import RandAugment
@@ -37,7 +40,7 @@ def get_model(args, shape, num_classes):
         )#.cuda(args.gpu)
         pt_ckpt = torch.load('pretrained_weights/RegNetY-1.6GF_dds_8gpu.pyth', map_location="cpu")
         model.load_state_dict(pt_ckpt["model_state"])
-        model.head = anynet.AnyHead(w_in=model.prev_w, nc=num_classes)#.cuda(args.gpu)
+        model.head = AnyHead(w_in=model.prev_w, nc=num_classes)#.cuda(args.gpu)
     elif 'EfficientNet' in args.model:
         model = eval(args.model)(
             shape,
@@ -47,7 +50,7 @@ def get_model(args, shape, num_classes):
         )#.cuda(args.gpu)
         pt_ckpt = torch.load('pretrained_weights/EN-B2_dds_8gpu.pyth', map_location="cpu")
         model.load_state_dict(pt_ckpt["model_state"])
-        model.head = efficientnet.EffHead(w_in=model.prev_w, w_out=model.head_w, nc=num_classes)#.cuda(args.gpu)
+        model.head = EffHead(w_in=model.prev_w, w_out=model.head_w, nc=num_classes)#.cuda(args.gpu)
     else:
         raise NameError('Not Supportes Model')
     

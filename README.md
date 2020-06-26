@@ -5,7 +5,7 @@ carrier of tricks for image classification tutorials using pytorch. Based on ["B
 - last update: 2020.06.25
 - [supplementary materials (blog post written in Korean)](https://hoya012.github.io/blog/Bag-of-Tricks-for-Image-Classification-with-Convolutional-Neural-Networks-Review/)
 
-## 0. Experimental Setup
+## 0. Experimental Setup (I used 1 GTX 1080 Ti GPU!)
 ### 0-1. Prepare Library
 
 ```python
@@ -33,6 +33,10 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 - 1080 Ti 1 GPU / Batch Size 64 / Epochs 120 / Initial Learning Rate 0.1
 - Training Augmentation: Resize((256, 256)), RandomCrop(224, 224), RandomHorizontalFlip(), RandomVerticalFlip(), Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
 - SGD + Momentum(0.9) + learning rate step decay (x0.1 at 30, 60, 90 epoch)
+
+```python
+python main.py --checkpoint_name baseline;
+```
 
 #### 1-1. Simple Trials
 - Random Initialized ResNet-50 (from scratch)
@@ -88,6 +92,7 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 ![](assets/regnet.PNG)
 
 - I will use EfficientNet-B2 which has similar acts with ResNet-50
+    - But, because of GPU Memory, i will use small batch size (48)...
 - I will use RegNetY-1.6GF which has similar FLOPS and acts with ResNet-50
 
 ### 4. Performance Table
@@ -103,6 +108,9 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 - R : RAdam Optimizer
 - RA : RandAugment
 - E : EvoNorm 
+
+- EN : EfficientNet
+- RN : RegNet
 
 |   Algorithm  |    Train Accuracy   | Validation Accuracy | Test Accuracy |
 |:------------:|:-------------------:|:-------------------:|:-------------:|
@@ -121,12 +129,24 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 |B + A + W + C + M|       -          |          -          |        -      |
 |B + A + W + C + S + M|   -          |          -          |        -      |
 |:------------:|:-------------------:|:-------------------:|:-------------:|
-|  BAWC + CM   |          -          |          -          |        -      |
-|  BWCS + R    |          -          |          -          |        -      |
-|  BAWCS + RA  |          -          |          -          |        -      |
-|  BAWCS + E   |          -          |          -          |        -      |
+|  BAWC + CM   |         69.97       |        92.98        |      93.57    |
+|  BWCS + R    |         85.42       |        92.83        |      93.53    |
+|  BAWCS + RA  |         71.94       |        92.87        |      92.67    |
+|  BAWCS + E   |         85.24       |        93.12        |      92.97    |
+| BWC + CM + R |         xx.xx       |        xx.xx        |      xx.xx    |
 |:------------:|:-------------------:|:-------------------:|:-------------:|
-
+|  EN + AWCS   |         xx.xx       |        xx.xx        |      xx.xx    |
+|  EN + AWCSM  |         xx.xx       |        xx.xx        |      xx.xx    |
+|EN + AWC + CM |         xx.xx       |        xx.xx        |      xx.xx    |
+|EN + WCS + R  |         xx.xx       |        xx.xx        |      xx.xx    |
+|EN + WC + CM + R|       xx.xx       |        xx.xx        |      xx.xx    |
+|:------------:|:-------------------:|:-------------------:|:-------------:|
+|  RN + AWCS   |         xx.xx       |        xx.xx        |      xx.xx    |
+|  RN + AWCSM  |         xx.xx       |        xx.xx        |      xx.xx    |
+|RN + AWC + CM |         xx.xx       |        xx.xx        |      xx.xx    |
+|RN + WCS + R  |         xx.xx       |        xx.xx        |      xx.xx    |
+|RN + WC + CM + R|       xx.xx       |        xx.xx        |      xx.xx    |
+|:------------:|:-------------------:|:-------------------:|:-------------:|
 
 
 ## Code Reference

@@ -1,5 +1,6 @@
 import torch.nn as nn
 import numpy as np
+import os
 from network.anynet import AnyNet
 
 def quantize_float(f, q):
@@ -47,6 +48,9 @@ class RegNet(AnyNet):
             raise ValueError('Invalid shape: {}'.format(shape))
         self.H, self.W, self.C = shape
         
+        if not os.path.exists(checkpoint_dir):
+            os.makedirs(checkpoint_dir)
+        self.checkpoint_path = os.path.join(checkpoint_dir, checkpoint_name, 'model.pt')
 
         SE_ON = True
         DEPTH = 27
