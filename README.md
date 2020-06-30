@@ -7,7 +7,7 @@
 carrier of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
 
 - author: hoya012  
-- last update: 2020.06.26
+- last update: 2020.06.30
 - [supplementary materials (blog post written in Korean)](https://hoya012.github.io/blog/Bag-of-Tricks-for-Image-Classification-with-Convolutional-Neural-Networks-Review/)
 
 ## 0. Experimental Setup (I used 1 GTX 1080 Ti GPU!)
@@ -187,41 +187,40 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 - EN : EfficientNet
 - RN : RegNet
 
-|   Algorithm  |    Train Accuracy   | Validation Accuracy | Test Accuracy |
-|:------------:|:-------------------:|:-------------------:|:-------------:|
-|B from scratch|         62.81       |        81.08        |        -      |
-|       B      |         65.31       |        82.44        |        -      |
-|     B + W    |         76.00       |        91.13        |        -      |
-|     B + Z    |         73.41       |        89.49        |      88.83    |
-|   B + W + Z  |         74.71       |        90.06        |      90.30    |
-|     B + A    |         82.01       |        92.80        |        -      |
-|   B + A + W  |         81.89       |        93.05        |      92.87    |
-| B + A + W + C|         85.07       |        92.70        |      93.03    |
-| B + A + W + S|         82.79       |        93.34        |        -      |
-| B + A + W + M|          -          |          -          |        -      |
-|B + A + W + S + M|       -          |          -          |        -      |
-|B + A + W + C + S|      85.28       |        93.30        |        -      |
-|B + A + W + C + M|       -          |          -          |        -      |
-|B + A + W + C + S + M|   -          |          -          |        -      |
-|:------------:|:-------------------:|:-------------------:|:-------------:|
-|  BAWC + CM   |         69.97       |        92.98        |      93.57    |
-|  BWCS + R    |         85.42       |        92.83        |      93.53    |
-|  BAWCS + RA  |         71.94       |        92.87        |      92.67    |
-|  BAWCS + E   |         85.24       |        93.12        |      92.97    |
-| BWC + CM + R |         xx.xx       |        xx.xx        |      xx.xx    |
-|:------------:|:-------------------:|:-------------------:|:-------------:|
-|  EN + AWCS   |         xx.xx       |        xx.xx        |      xx.xx    |
-|  EN + AWCSM  |         xx.xx       |        xx.xx        |      xx.xx    |
-|EN + AWC + CM |         xx.xx       |        xx.xx        |      xx.xx    |
-|EN + WCS + R  |         xx.xx       |        xx.xx        |      xx.xx    |
-|EN + WC + CM + R|       xx.xx       |        xx.xx        |      xx.xx    |
-|:------------:|:-------------------:|:-------------------:|:-------------:|
-|  RN + AWCS   |         xx.xx       |        xx.xx        |      xx.xx    |
-|  RN + AWCSM  |         xx.xx       |        xx.xx        |      xx.xx    |
-|RN + AWC + CM |         xx.xx       |        xx.xx        |      xx.xx    |
-|RN + WCS + R  |         xx.xx       |        xx.xx        |      xx.xx    |
-|RN + WC + CM + R|       xx.xx       |        xx.xx        |      xx.xx    |
-|:------------:|:-------------------:|:-------------------:|:-------------:|
+|   Algorithm  | Validation Accuracy | Test Accuracy |
+|:------------:|:-------------------:|:-------------:|
+|B from scratch|        78.52        |      78.30    |
+|       B      |        84.25        |      83.93    |
+|     B + W    |        91.80        |      91.37    |
+|     B + Z    |        89.49        |      88.83    |
+|   B + W + Z  |        90.06        |      90.30    |
+|     B + A    |        92.76        |      93.13    |
+|   B + A + W  |        93.05        |      92.87    |
+| B + A + W + C|        92.70        |      93.03    |
+| B + A + W + S|        93.66        |      93.67    |
+| B + A + W + M|        93.05        |      93.27    |
+|B + A + W + S + M|     93.37        |      93.90    |
+|B + A + W + C + S|     92.91        |      93.27    |
+|B + A + W + C + M|     93.16        |      93.20    |
+|B + A + W + C + S + M| 93.34        |      93.50    |
+|:------------:|:-------------------:|:-------------:|
+|  BAWC + CM   |        92.98        |      93.57    |
+|  BWCS + R    |        92.83        |      93.53    |
+|  BAWCS + RA  |        92.87        |      92.67    |
+|  BAWCS + E   |        93.12        |      92.97    |
+| BWC + CM + R |        93.48        |      93.30    |
+|:------------:|:-------------------:|:-------------:|
+|  EN + AWCS   |        92.91        |      93.10    |
+|  EN + AWCSM  |        93.48        |      93.47    |
+|EN + AWC + CM |        94.05        |      93.60    |
+|EN + WCS + R  |        93.52        |      93.27    |
+|EN + WC + CM + R|      93.59        |      93.47    |
+|:------------:|:-------------------:|:-------------:|
+|  RN + AWCS   |        93.02        |      93.53    |
+|  RN + AWCSM  |        93.55        |      93.37    |
+|RN + AWC + CM |        93.44        |      93.63    |
+|RN + WCS + R  |        93.41        |      93.03    |
+|RN + WC + CM + R|      94.16        |      93.40    |
 
 
 ## 5. Code Reference
