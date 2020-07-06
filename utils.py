@@ -120,28 +120,25 @@ def make_scheduler(args, optimizer):
     return scheduler
 
 def make_dataloader(args):
+    
     train_trans = T.Compose([
-        T.Resize((256, 256)),
-        T.RandomCrop(224, 224),
-        T.RandomHorizontalFlip(),
-        T.RandomVerticalFlip(),
-        T.ToTensor(),
-        T.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
-        ])
+    T.Resize((256, 256)),
+    T.RandomHorizontalFlip(),
+    T.ToTensor(),
+    ])
     
     if args.randaugment:
-        train_trans.transforms.insert(0, RandAugment(3, 5))
+        #train_trans.transforms.insert(0, RandAugment(3, 5))
+        train_trans.transforms.insert(0, RandAugment(args.rand_n, args.rand_m))
 
     valid_trans = T.Compose([
-        T.Resize((224, 224)),
+        T.Resize((256, 256)),
         T.ToTensor(),
-        T.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
         ])
     
     test_trans = T.Compose([
-        T.Resize((224, 224)),
+        T.Resize((256, 256)),
         T.ToTensor(),
-        T.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
         ])
 
     trainset = torchvision.datasets.ImageFolder(root="data/seg_train/seg_train", transform=train_trans)

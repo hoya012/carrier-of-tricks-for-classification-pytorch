@@ -11,7 +11,7 @@ def get_args():
     parser.add_argument('--num_classes', type=int, default=6)
     parser.add_argument('--pretrained', type=int, default=1)
     parser.add_argument('--pretrained_path', type=str, default=None)
-    parser.add_argument('--checkpoint_dir', type=str, default='checkpoint')
+    parser.add_argument('--checkpoint_dir', type=str, default='/data_hdd/hoseong/checkpoint')
     parser.add_argument('--checkpoint_name', type=str, default='')
     parser.add_argument('--zero_gamma', action='store_true', default=False)
 
@@ -29,6 +29,8 @@ def get_args():
     parser.add_argument('--cutmix_alpha', type=float, default=0.0, help='cutmix alpha')
     parser.add_argument('--cutmix_prob', type=float, default=0.0, help='cutmix probability')
     parser.add_argument('--randaugment', action='store_true', default=False)
+    parser.add_argument('--rand_n', type=int, default=3)
+    parser.add_argument('--rand_m', type=int, default=15)
 
     # optimzier & learning rate scheduler
     parser.add_argument('--learning_rate', type=float, default=0.1)
