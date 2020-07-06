@@ -7,7 +7,7 @@
 carrier of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
 
 - author: hoya012  
-- last update: 2020.06.30
+- last update: 2020.07.06
 - [supplementary materials (blog post written in Korean)](https://hoya012.github.io/blog/Bag-of-Tricks-for-Image-Classification-with-Convolutional-Neural-Networks-Review/)
 
 ## 0. Experimental Setup (I used 1 GTX 1080 Ti GPU!)
@@ -36,7 +36,7 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 ### 1. Baseline Training Setting
 - ImageNet Pratrained ResNet-50 from torchvision.models
 - 1080 Ti 1 GPU / Batch Size 64 / Epochs 120 / Initial Learning Rate 0.1
-- Training Augmentation: Resize((256, 256)), RandomCrop(224, 224), RandomHorizontalFlip(), RandomVerticalFlip(), Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
+- Training Augmentation: Resize((256, 256)), RandomHorizontalFlip()
 - SGD + Momentum(0.9) + learning rate step decay (x0.1 at 30, 60, 90 epoch)
 
 ```python
@@ -126,6 +126,8 @@ python main.py --checkpoint_name baseline_RAdam_warmup_cosine_cutmix --optimizer
 
 #### 3-3. RandAugment
 - [RandAugment paper link](https://arxiv.org/pdf/1909.13719.pdf)
+- I will use N=2, M=15.
+
 ![](assets/randaugment.PNG)
 
 ```python
@@ -189,41 +191,44 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 
 |   Algorithm  | Validation Accuracy | Test Accuracy |
 |:------------:|:-------------------:|:-------------:|
-|B from scratch|        78.52        |      78.30    |
-|       B      |        84.25        |      83.93    |
-|     B + W    |        91.80        |      91.37    |
-|     B + Z    |        89.49        |      88.83    |
-|   B + W + Z  |        90.06        |      90.30    |
-|     B + A    |        92.76        |      93.13    |
-|   B + A + W  |        93.05        |      92.87    |
-| B + A + W + C|        92.70        |      93.03    |
-| B + A + W + S|        93.66        |      93.67    |
-| B + A + W + M|        93.05        |      93.27    |
-|B + A + W + S + M|     93.37        |      93.90    |
-|B + A + W + C + S|     92.91        |      93.27    |
-|B + A + W + C + M|     93.16        |      93.20    |
-|B + A + W + C + S + M| 93.34        |      93.50    |
+|B from scratch|        86.68        |      86.10    |
+|       B      |        86.14        |      87.93    |
+|     B + W    |        91.34        |      91.37    |
+|     B + Z    |        91.52        |      91.00    |
+|   B + W + Z  |        91.52        |      91.67    |
+|     B + A    |        93.34        |      93.90    |
+|   B + A + W  |        93.87        |      94.47    |
+| B + A + W + C|        93.66        |      93.67    |
+| B + A + W + S|        93.94        |      93.77    |
+| B + A + W + M|        94.09        |      94.20    |
+|B + A + W + S + M|     93.69        |      94.40    |
+|B + A + W + C + S|     93.16        |      93.57    |
+|B + A + W + C + M|     93.59        |      93.77    |
+|B + A + W + C + S + M| 93.77        |      93.77    |
 |:------------:|:-------------------:|:-------------:|
-|  BAWC + CM   |        92.98        |      93.57    |
-|  BWCS + R    |        92.83        |      93.53    |
-|  BAWCS + RA  |        92.87        |      92.67    |
-|  BAWCS + E   |        93.12        |      92.97    |
-| BWC + CM + R |        93.48        |      93.30    |
+|  BAWC + CM   |        94.44        |      93.97    |
+|  BWCS + R    |        93.27        |      93.73    |
+|  BAWCS + RA  |        93.94        |      93.80    |
+|  BAWCS + E   |        93.55        |      93.70    |
+| BWC + CM + R |        94.23        |      93.90    |
 |:------------:|:-------------------:|:-------------:|
-|  EN + AWCS   |        92.91        |      93.10    |
-|  EN + AWCSM  |        93.48        |      93.47    |
-|EN + AWC + CM |        94.05        |      93.60    |
-|EN + WCS + R  |        93.52        |      93.27    |
-|EN + WC + CM + R|      93.59        |      93.47    |
+|  EN + AWCS   |        93.55        |      93.90    |
+|  EN + AWCSM  |        93.48        |      93.50    |
+|EN + AWC + CM |        94.19        |      94.03    |
+|EN + WCS + R  |        93.91        |      94.03    |
+|EN + WC + CM + R|      93.98        |      94.27    |
 |:------------:|:-------------------:|:-------------:|
-|  RN + AWCS   |        93.02        |      93.53    |
-|  RN + AWCSM  |        93.55        |      93.37    |
-|RN + AWC + CM |        93.44        |      93.63    |
-|RN + WCS + R  |        93.41        |      93.03    |
-|RN + WC + CM + R|      94.16        |      93.40    |
+|  RN + AWCS   |        93.73        |      93.77    |
+|  RN + AWCSM  |        94.30        |      94.30    |
+|RN + AWC + CM |        93.91        |      94.97    |
+|RN + WCS + R  |        93.91        |      94.10    |
+|RN + WC + CM + R|      94.48        |      94.37    |
 
 
-## 5. Code Reference
+### 5. How to run all of experiments?
+- see `gpu_history.sh`
+
+### 6. Code Reference
 - Gradual Warmup Scheduler: https://github.com/ildoonet/pytorch-gradual-warmup-lr
 - Label Smoothing: https://github.com/NVIDIA/DeepLearningExamples/blob/master/PyTorch/Classification/ConvNets/image_classification/smoothing.py
 - MixUp Augmentation: https://github.com/NVIDIA/DeepLearningExamples/blob/master/PyTorch/Classification/ConvNets/image_classification/mixup.py
