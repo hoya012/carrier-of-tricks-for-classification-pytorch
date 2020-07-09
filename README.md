@@ -34,7 +34,7 @@ This Data contains around 25k images of size 150x150 distributed under 6 categor
 - download **RegNetY-1.6GF** and **EfficientNet-B2** weights
 
 ### 1. Baseline Training Setting
-- ImageNet Pratrained ResNet-50 from torchvision.models
+- ImageNet Pretrained ResNet-50 from torchvision.models
 - 1080 Ti 1 GPU / Batch Size 64 / Epochs 120 / Initial Learning Rate 0.1
 - Training Augmentation: Resize((256, 256)), RandomHorizontalFlip()
 - SGD + Momentum(0.9) + learning rate step decay (x0.1 at 30, 60, 90 epoch)
