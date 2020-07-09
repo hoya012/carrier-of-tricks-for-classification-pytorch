@@ -7,7 +7,7 @@
 carrier of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
 
 - author: hoya012  
-- last update: 2020.07.06
+- last update: 2020.07.09
 - [supplementary materials (blog post written in Korean)](https://hoya012.github.io/blog/Bag-of-Tricks-for-Image-Classification-with-Convolutional-Neural-Networks-Review/)
 
 ## 0. Experimental Setup (I used 1 GTX 1080 Ti GPU!)
@@ -176,7 +176,6 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 - B : Baseline
 - A : Adam Optimizer
 - W : Warm up 
-- Z : Zero Gamma in Batch Norm
 - C : Cosine Annealing
 - S : Label Smoothing
 - M : MixUp Augmentation
@@ -193,17 +192,12 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 |:------------:|:-------------------:|:-------------:|
 |B from scratch|        86.68        |      86.10    |
 |       B      |        86.14        |      87.93    |
-|     B + W    |        91.34        |      91.37    |
-|     B + Z    |        91.52        |      91.00    |
-|   B + W + Z  |        91.52        |      91.67    |
 |     B + A    |        93.34        |      93.90    |
 |   B + A + W  |        93.87        |      94.47    |
 | B + A + W + C|        93.66        |      93.67    |
 | B + A + W + S|        93.94        |      93.77    |
 | B + A + W + M|        94.09        |      94.20    |
 |B + A + W + S + M|     93.69        |      94.40    |
-|B + A + W + C + S|     93.16        |      93.57    |
-|B + A + W + C + M|     93.59        |      93.77    |
 |B + A + W + C + S + M| 93.77        |      93.77    |
 |:------------:|:-------------------:|:-------------:|
 |  BAWC + CM   |        94.44        |      93.97    |
@@ -212,13 +206,11 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 |  BAWCS + E   |        93.55        |      93.70    |
 | BWC + CM + R |        94.23        |      93.90    |
 |:------------:|:-------------------:|:-------------:|
-|  EN + AWCS   |        93.55        |      93.90    |
 |  EN + AWCSM  |        93.48        |      93.50    |
 |EN + AWC + CM |        94.19        |      94.03    |
 |EN + WCS + R  |        93.91        |      94.03    |
 |EN + WC + CM + R|      93.98        |      94.27    |
 |:------------:|:-------------------:|:-------------:|
-|  RN + AWCS   |        93.73        |      93.77    |
 |  RN + AWCSM  |        94.30        |      94.30    |
 |RN + AWC + CM |        93.91        |      94.97    |
 |RN + WCS + R  |        93.91        |      94.10    |
