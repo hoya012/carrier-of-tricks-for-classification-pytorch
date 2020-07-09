@@ -126,7 +126,7 @@ python main.py --checkpoint_name baseline_RAdam_warmup_cosine_cutmix --optimizer
 
 #### 3-3. RandAugment
 - [RandAugment paper link](https://arxiv.org/pdf/1909.13719.pdf)
-- I will use N=2, M=15.
+- I will use N=3, M=15.
 
 ![](assets/randaugment.PNG)
 
