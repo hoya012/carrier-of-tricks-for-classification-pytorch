@@ -218,7 +218,7 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 
 
 ### 5. How to run all of experiments?
-- see `gpu_history.sh`
+- see [`gpu_history.sh`](https://github.com/hoya012/carrier-of-tricks-for-classification-pytorch/blob/master/gpu_history.sh)
 
 ### 6. Code Reference
 - Gradual Warmup Scheduler: https://github.com/ildoonet/pytorch-gradual-warmup-lr
