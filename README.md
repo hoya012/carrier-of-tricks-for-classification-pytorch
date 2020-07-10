@@ -193,7 +193,7 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 |B from scratch|        86.68        |      86.10    |
 |       B      |        86.14        |      87.93    |
 |     B + A    |        93.34        |      93.90    |
-|   B + A + W  |        93.87        |      94.47    |
+|   B + A + W  |        93.77        |      94.17    |
 | B + A + W + C|        93.66        |      93.67    |
 | B + A + W + S|        93.94        |      93.77    |
 | B + A + W + M|        94.09        |      94.20    |
