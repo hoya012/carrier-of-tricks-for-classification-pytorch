@@ -217,7 +217,10 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 |RN + WCS + R  |        93.91        |      94.10    |
 |RN + WC + CM + R|      94.48        |      94.37    |
 
-- Tip: I recommend long training epoch if you use many regularization techniques (RandAugment, CutMix, etc). Remember that i use just **120** epoch. 
+- Tip: I recommend long training epoch if you use many regularization techniques (Label Smoothing, MixUp, RandAugment, CutMix, etc). Remember that i use just **120** epoch. 
+    - reference: ["Compounding the Performance Improvements of Assembled Techniques in a Convolutional Neural Network", 2020 arXiv](https://arxiv.org/pdf/2001.06268.pdf)
+![](assets/assemble.PNG)
+
 
 ### 5. How to run all of experiments?
 - see [`gpu_history.sh`](https://github.com/hoya012/carrier-of-tricks-for-classification-pytorch/blob/master/gpu_history.sh)
