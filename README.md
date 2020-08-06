@@ -206,15 +206,15 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 |  BAWCS + E   |        93.55        |      93.70    |
 | BWC + CM + R |        94.23        |      93.90    |
 |:------------:|:-------------------:|:-------------:|
-|  EN + AWCSM  |        93.48        |      93.50    |
-|EN + AWC + CM |        94.19        |      94.03    |
-|EN + WCS + R  |        93.91        |      94.03    |
+|  EN + AWCSM  |        93.48        |      94.07    |
+|EN + AWC + CM |        94.19        |      94.17    |
+|EN + WCS + R  |        93.91        |      94.30    |
 |EN + WC + CM + R|      93.98        |      94.27    |
 |:------------:|:-------------------:|:-------------:|
-|  RN + AWCSM  |        94.30        |      94.30    |
+|  RN + AWCSM  |        94.30        |      94.63    |
 |RN + AWC + CM |        93.91        |      94.97    |
-|RN + WCS + R  |        93.91        |      94.10    |
-|RN + WC + CM + R|      94.48        |      94.37    |
+|RN + WCS + R  |        93.91        |      94.20    |
+|RN + WC + CM + R|      94.48        |      94.57    |
 
 
 ### 5. How to run all of experiments?
