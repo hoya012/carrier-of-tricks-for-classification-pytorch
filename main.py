@@ -50,11 +50,18 @@ def main():
     else:
         evaluator.save(result_dict)
 
+        best_val_acc = 0.0
         """ define training loop """
         for epoch in range(args.epochs):
             result_dict['epoch'] = epoch
             result_dict = trainer.train(train_loader, epoch, args, result_dict)
             result_dict = evaluator.evaluate(valid_loader, epoch, args, result_dict)
+
+            if result_dict['val_acc'][-1] > best_val_acc:
+                print("{} epoch, best epoch was updated! {}%".format(epoch, result_dict['val_acc'][-1]))
+                best_val_acc = result_dict['val_acc'][-1]
+                model.save(checkpoint_name='best_model')
+
             evaluator.save(result_dict)
             plot_learning_curves(result_dict, epoch, args)
 
@@ -62,7 +69,12 @@ def main():
         evaluator.save(result_dict)
 
         """ save model checkpoint """
-        model.save()
+        model.save(checkpoint_name='last_model')
+
+        """ calculate test accuracy using best model """
+        model.load(checkpoint_name='best_model')
+        result_dict = evaluator.test(test_loader, args, result_dict)
+        evaluator.save(result_dict)
 
     print(result_dict)
 if __name__ == '__main__':
