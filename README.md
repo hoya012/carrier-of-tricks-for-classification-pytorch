@@ -7,7 +7,7 @@
 carrier of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
 
 - author: hoya012  
-- last update: 2020.07.16
+- last update: 2020.08.06
 - [supplementary materials (blog post written in Korean)](https://hoya012.github.io/blog/Bag-of-Tricks-for-Image-Classification-with-Convolutional-Neural-Networks-Review/)
 
 ## 0. Experimental Setup (I used 1 GTX 1080 Ti GPU!)
@@ -188,34 +188,34 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 - EN : EfficientNet
 - RN : RegNet
 
-|   Algorithm  | Validation Accuracy | Test Accuracy |
-|:------------:|:-------------------:|:-------------:|
-|B from scratch|        86.68        |      86.10    |
-|       B      |        86.14        |      87.93    |
-|     B + A    |        93.34        |      93.90    |
-|   B + A + W  |        93.77        |      94.17    |
-| B + A + W + C|        93.66        |      93.67    |
-| B + A + W + S|        93.94        |      93.77    |
-|B + A + W + C + S|     93.80        |      93.63    |
-| B + A + W + M|        94.09        |      94.20    |
-|B + A + W + S + M|     93.69        |      94.40    |
-|B + A + W + C + S + M| 93.77        |      93.77    |
-|:------------:|:-------------------:|:-------------:|
-|  BAWC + CM   |        94.44        |      93.97    |
-|  BWCS + R    |        93.27        |      93.73    |
-|  BAWCS + RA  |        93.94        |      93.80    |
-|  BAWCS + E   |        93.55        |      93.70    |
-| BWC + CM + R |        94.23        |      93.90    |
-|:------------:|:-------------------:|:-------------:|
-|  EN + AWCSM  |        93.48        |      94.07    |
-|EN + AWC + CM |        94.19        |      94.17    |
-|EN + WCS + R  |        93.91        |      94.30    |
-|EN + WC + CM + R|      93.98        |      94.27    |
-|:------------:|:-------------------:|:-------------:|
-|  RN + AWCSM  |        94.30        |      94.63    |
-|RN + AWC + CM |        93.91        |      94.97    |
-|RN + WCS + R  |        93.91        |      94.20    |
-|RN + WC + CM + R|      94.48        |      94.57    |
+|   Algorithm  | Test Accuracy |
+|:------------:|:-------------:|
+|B from scratch|     86.47    |
+|       B      |     89.07    |
+|     B + A    |     94.13    |
+|   B + A + W  |     94.57    |
+| B + A + W + C|     94.20    |
+| B + A + W + S|     93.67    |
+|B + A + W + C + S|  93.67    |
+| B + A + W + M|     94.03    |
+|B + A + W + S + M|  94.27    |
+|B + A + W + C + S + M| 93.73 |
+|:------------:|:------------:|
+|  BAWC + CM   |     94.20    |
+|  BWCS + R    |     93.97    |
+|  BAWCS + RA  |     93.93    |
+|  BAWCS + E   |     93.53    |
+| BWC + CM + R |     94.27    |
+|:------------:|:------------:|
+|  EN + AWCSM  |     94.07    |
+|EN + AWC + CM |     94.33    |
+|EN + WCS + R  |     94.50    |
+|EN + WC + CM + R|   94.33    |
+|:------------:|:------------:|
+|  RN + AWCSM  |     94.57    |
+|RN + AWC + CM |     94.83    |
+|RN + WCS + R  |     94.37    |
+|RN + WC + CM + R|   94.90    |
 
 - Tip: I recommend long training epoch if you use many regularization techniques (Label Smoothing, MixUp, RandAugment, CutMix, etc). Remember that i use just **120** epoch. 
     - reference: ["Compounding the Performance Improvements of Assembled Techniques in a Convolutional Neural Network", 2020 arXiv](https://arxiv.org/pdf/2001.06268.pdf)
