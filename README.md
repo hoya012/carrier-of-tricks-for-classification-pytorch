@@ -7,7 +7,7 @@
 carrier of tricks for image classification tutorials using pytorch. Based on ["Bag of Tricks for Image Classification with Convolutional Neural Networks", 2019 CVPR Paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bag_of_Tricks_for_Image_Classification_with_Convolutional_Neural_Networks_CVPR_2019_paper.pdf), implement classification codebase using custom dataset.
 
 - author: hoya012  
-- last update: 2020.07.09
+- last update: 2020.07.16
 - [supplementary materials (blog post written in Korean)](https://hoya012.github.io/blog/Bag-of-Tricks-for-Image-Classification-with-Convolutional-Neural-Networks-Review/)
 
 ## 0. Experimental Setup (I used 1 GTX 1080 Ti GPU!)
@@ -196,6 +196,7 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 |   B + A + W  |        93.77        |      94.17    |
 | B + A + W + C|        93.66        |      93.67    |
 | B + A + W + S|        93.94        |      93.77    |
+|B + A + W + C + S|     93.80        |      93.63    |
 | B + A + W + M|        94.09        |      94.20    |
 |B + A + W + S + M|     93.69        |      94.40    |
 |B + A + W + C + S + M| 93.77        |      93.77    |
@@ -215,6 +216,10 @@ python main.py --checkpoint_name regnet_RAdam_warmup_cosine_cutmix --model RegNe
 |RN + AWC + CM |        93.91        |      94.97    |
 |RN + WCS + R  |        93.91        |      94.20    |
 |RN + WC + CM + R|      94.48        |      94.57    |
+
+- Tip: I recommend long training epoch if you use many regularization techniques (Label Smoothing, MixUp, RandAugment, CutMix, etc). Remember that i use just **120** epoch. 
+    - reference: ["Compounding the Performance Improvements of Assembled Techniques in a Convolutional Neural Network", 2020 arXiv](https://arxiv.org/pdf/2001.06268.pdf)
+![](assets/assemble.PNG)
 
 
 ### 5. How to run all of experiments?
