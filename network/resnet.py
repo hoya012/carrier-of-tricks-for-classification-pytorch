@@ -207,12 +207,19 @@ class ResNet50(nn.Module):
             nn.Linear(self.num_features, num_classes)
         )
 
-    def save(self):
-        torch.save(self.state_dict(), self.checkpoint_path)
+    def save(self, checkpoint_name=''):
+        if checkpoint_name == '':
+            torch.save(self.state_dict(), self.checkpoint_path)
+        else:
+            checkpoint_path = os.path.join(self.checkpoint_dir, self.checkpoint_name, checkpoint_name + '.pt')
+            torch.save(self.state_dict(), checkpoint_path)
 
-    def load(self):
-        assert os.path.exists(self.checkpoint_path)
-        self.load_state_dict(torch.load(self.checkpoint_path))
+    def load(self, checkpoint_name=''):
+        if checkpoint_name == '':
+            self.load_state_dict(torch.load(self.checkpoint_path))
+        else:
+            checkpoint_path = os.path.join(self.checkpoint_dir, self.checkpoint_name, checkpoint_name + '.pt')
+            self.load_state_dict(torch.load(checkpoint_path))
 
     def forward(self, x):
         out = x

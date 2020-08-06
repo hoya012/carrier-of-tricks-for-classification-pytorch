@@ -278,9 +278,12 @@ class EfficientNet(nn.Module):
         if checkpoint_name == '':
             torch.save(self.state_dict(), self.checkpoint_path)
         else:
-            checkpoint_path = os.path.join(self.checkpoint_dir, checkpoint_name + '.pt')
+            checkpoint_path = os.path.join(self.checkpoint_dir, self.checkpoint_name, checkpoint_name + '.pt')
             torch.save(self.state_dict(), checkpoint_path)
 
-    def load(self):
-        assert os.path.exists(self.checkpoint_path)
-        self.load_state_dict(torch.load(self.checkpoint_path))
+    def load(self, checkpoint_name=''):
+        if checkpoint_name == '':
+            self.load_state_dict(torch.load(self.checkpoint_path))
+        else:
+            checkpoint_path = os.path.join(self.checkpoint_dir, self.checkpoint_name, checkpoint_name + '.pt')
+            self.load_state_dict(torch.load(checkpoint_path))
