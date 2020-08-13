@@ -6,11 +6,12 @@ from learning.mixup import MixUpWrapper, NLLMultiLabelSmooth
 from learning.cutmix import cutmix
 
 class Trainer:
-    def __init__(self, model, criterion, optimizer, scheduler):
+    def __init__(self, model, criterion, optimizer, scheduler, scaler):
         self.model = model
         self.criterion = criterion
         self.optimizer = optimizer
         self.scheduler = scheduler
+        self.scaler = scaler
 
     def train(self, data_loader, epoch, args, result_dict):
         total_loss = 0
@@ -35,8 +36,13 @@ class Trainer:
                 if r < args.cutmix_prob:
                     outputs, loss = cutmix(args, self.model, self.criterion, inputs, labels)
             else:
-                outputs = self.model(inputs)
-                loss = self.criterion(outputs, labels)
+                if args.amp:
+                    with torch.cuda.amp.autocast():
+                        outputs = self.model(inputs)
+                        loss = self.criterion(outputs, labels)
+                else:
+                    outputs = self.model(inputs)
+                    loss = self.criterion(outputs, labels)
 
             if len(labels.size()) > 1:
                 labels = torch.argmax(labels, axis=1)
@@ -46,8 +52,13 @@ class Trainer:
             top1.update(prec1.item(), inputs.size(0))
 
             self.optimizer.zero_grad()
-            loss.backward()
-            self.optimizer.step()
+            if args.amp:
+                self.scaler.scale(loss).backward()
+                self.scaler.step(self.optimizer)
+                self.scaler.update()
+            else:
+                loss.backward()
+                self.optimizer.step()
             total_loss += loss.tolist()
             count += labels.size(0)
 

@@ -1,4 +1,5 @@
-import os, sys
+import os, sys, time
+import numpy as np
 import torch
 import torch.nn as nn
 import torchvision
@@ -37,11 +38,17 @@ def main():
 
     """ define learning rate scheduler """
     scheduler = make_scheduler(args, optimizer)
-    
+
+    """ define loss scaler for automatic mixed precision """
+    scaler = torch.cuda.amp.GradScaler()
+
     """ define trainer, evaluator, result_dictionary """
     result_dict = {'args':vars(args), 'epoch':[], 'train_loss' : [], 'train_acc' : [], 'val_loss' : [], 'val_acc' : [], 'test_acc':[]}
-    trainer = Trainer(model, criterion, optimizer, scheduler)
+    trainer = Trainer(model, criterion, optimizer, scheduler, scaler)
     evaluator = Evaluator(model, criterion)
+
+    train_time_list = []
+    valid_time_list = []
 
     if args.evaluate:
         """ load model checkpoint """
@@ -54,8 +61,24 @@ def main():
         """ define training loop """
         for epoch in range(args.epochs):
             result_dict['epoch'] = epoch
+
+            torch.cuda.synchronize()
+            tic1 = time.time()
+
             result_dict = trainer.train(train_loader, epoch, args, result_dict)
+
+            torch.cuda.synchronize()
+            tic2 = time.time() 
+            train_time_list.append(tic2 - tic1)
+
+            torch.cuda.synchronize()
+            tic3 = time.time()
+
             result_dict = evaluator.evaluate(valid_loader, epoch, args, result_dict)
+
+            torch.cuda.synchronize()
+            tic4 = time.time() 
+            valid_time_list.append(tic4 - tic3)
 
             if result_dict['val_acc'][-1] > best_val_acc:
                 print("{} epoch, best epoch was updated! {}%".format(epoch, result_dict['val_acc'][-1]))
@@ -77,5 +100,8 @@ def main():
         evaluator.save(result_dict)
 
     print(result_dict)
+    np.savetxt('train_time_amp{}.csv'.format(args.amp), train_time_list, delimiter=',', fmt='%s')
+    np.savetxt('valid_time_amp{}.csv'.format(args.amp), valid_time_list, delimiter=',', fmt='%s')
+
 if __name__ == '__main__':
     main()
