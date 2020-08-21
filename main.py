@@ -100,8 +100,11 @@ def main():
         evaluator.save(result_dict)
 
     print(result_dict)
-    np.savetxt('train_time_amp{}.csv'.format(args.amp), train_time_list, delimiter=',', fmt='%s')
-    np.savetxt('valid_time_amp{}.csv'.format(args.amp), valid_time_list, delimiter=',', fmt='%s')
+
+    #os.path.join(self.model.checkpoint_dir, self.model.checkpoint_name, 'result_dict.json')
+    np.savetxt(os.path.join(model.checkpoint_dir, model.checkpoint_name, 'train_time_amp.csv'), train_time_list, delimiter=',', fmt='%s')
+    np.savetxt(os.path.join(model.checkpoint_dir, model.checkpoint_name, 'valid_time_amp.csv'), valid_time_list, delimiter=',', fmt='%s')
+    #np.savetxt('valid_time_amp{}.csv'.format(args.amp), valid_time_list, delimiter=',', fmt='%s')
 
 if __name__ == '__main__':
     main()

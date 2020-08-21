@@ -50,8 +50,13 @@ class Evaluator():
         with torch.no_grad():
             for batch_idx, (inputs, labels) in enumerate(data_loader):
                 inputs, labels = inputs.cuda(), labels.cuda()
-                outputs = self.model(inputs)
-                loss = self.criterion(outputs, labels)
+                if args.amp:
+                    with torch.cuda.amp.autocast():
+                        outputs = self.model(inputs)
+                        loss = self.criterion(outputs, labels)
+                else:
+                    outputs = self.model(inputs)
+                    loss = self.criterion(outputs, labels)
 
                 prec1, prec3 = accuracy(outputs.data, labels, topk=(1, 3))
                 losses.update(loss.item(), inputs.size(0))
